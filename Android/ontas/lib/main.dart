@@ -11,9 +11,10 @@ class MyApp extends StatelessWidget {
     return ScopedModel<MainModel>(
         model: MainModel(),
         child: MaterialApp(
+            debugShowCheckedModeBanner: false,
             title: 'OnTas',
             theme: ThemeData(
-              primarySwatch: Colors.green,
+              primarySwatch: Colors.amber,
             ),
             home: LoginPage()));
   }

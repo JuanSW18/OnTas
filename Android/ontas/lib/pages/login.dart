@@ -22,7 +22,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: _isLoading ? Colors.white : GreenMain,
+        backgroundColor: _isLoading ? Colors.white : Colors.amber,
         body: _isLoading
             ? Center(
                 child: Column(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
@@ -104,19 +104,18 @@ class _LoginPageState extends State<LoginPage> {
     return Container(
         width: MediaQuery.of(context).size.width,
         child: FlatButton(
-            child: Text(login ? 'INGRESAR' : 'CREAR CUENTA', style: TextStyle(color: Colors.white)),
+            child: Text(login ? 'INGRESAR' : 'CREAR CUENTA'),
             onPressed: () => _emailAuthenticate(model),
-            color: GreenMain));
+            color: Colors.amber));
   }
 
   Widget _buildLoginOrSignUp() {
     return Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-      Text(login ? '¿Aún no tienes cuenta? ' : '¿Ya tienes cuenta? ',
-          style: TextStyle(color: Colors.white)),
+      Text(login ? '¿Aún no tienes cuenta? ' : '¿Ya tienes cuenta? '),
       InkWell(
         onTap: toggleLoginToCreateAccount,
         child: Text(login ? 'Regístrate' : 'Inicia Sesión',
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+            style: TextStyle(fontWeight: FontWeight.bold)),
       )
     ]);
   }
@@ -126,8 +125,7 @@ class _LoginPageState extends State<LoginPage> {
       child: InkWell(
         //TODO:Link to terms and conditions
         onTap: () {},
-        child:
-            Text('Términos y condiciones', style: TextStyle(color: Colors.white, fontSize: 13.0)),
+        child: Text('Términos y condiciones', style: TextStyle(fontSize: 13.0)),
       ),
     );
   }
