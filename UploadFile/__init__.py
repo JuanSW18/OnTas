@@ -19,7 +19,7 @@ def upload_file():
                 
 
 def is_valid_face(features):
-        return True if len(features['FaceRecords'])==1 else False
+        return len(features['FaceRecords'])==1
 
 def get_error(numberFace):
         return 'Esta imagen no contiene un rostro' if numberFace==0 else 'Esta imagen contiene más de 1 rostro'
@@ -38,11 +38,7 @@ def match():
 			return Response(json.dumps({"message":"No se encontro match"}), status=400, mimetype='application/json')
 
 def is_match(features):
-        return True if len(features['FaceMatches'])>0 else False
-
-def get_error(numberFace):
-        return 'Esta imagen no contiene un rostro' if numberFace==0 else 'Esta imagen contiene más de 1 rostro'
-
+        return len(features['FaceMatches'])>0
 
 def getURL(photo):
 	response = aws.post(photo)
