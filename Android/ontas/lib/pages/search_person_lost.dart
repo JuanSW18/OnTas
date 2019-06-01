@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:ontas/components/image_input.dart';
+import 'package:ontas/pages/person_found.dart';
 import 'package:ontas/scoped_model/main_model.dart';
 import 'package:scoped_model/scoped_model.dart';
 
@@ -66,7 +67,16 @@ class _SearchPersonPageState extends State<SearchPersonPage> {
                             'respondToName': _respondToNameController.text,
                             'description': _descriptionController.text
                           };
-                          model.findMyFriend(_imageFile, jsonPerson);
+                          model.findMyFriend(_imageFile, jsonPerson).then((found) {
+                            if (found) {
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute<bool>(
+                                      builder: (BuildContext context) => PersonFound()));
+                            } else {
+                              _showInputGameNameDialog(context);
+                            }
+                          });
                         },
                         color: Colors.amber),
                   ),
@@ -75,5 +85,24 @@ class _SearchPersonPageState extends State<SearchPersonPage> {
             ],
           ));
     });
+  }
+
+  _showInputGameNameDialog(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+              title: Text('Lo sentimos'),
+              content: Container(
+                child: Text('No se encontró a ninguna persona parecida.'),
+              ),
+              actions: <Widget>[
+                FlatButton(
+                    child: Text('ESTA BIEN'),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    })
+              ]);
+        });
   }
 }

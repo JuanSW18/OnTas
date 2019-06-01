@@ -13,7 +13,9 @@ class CreatePersonLostPage extends StatefulWidget {
 
 class _CreatePersonLostPageState extends State<CreatePersonLostPage> {
   var _lostPersonNameController = TextEditingController(text: "");
-  var _lastTimeSeenController = TextEditingController(text: "");
+  var _lastPlaceSeenController = TextEditingController(text: "");
+  var _nameContactController = TextEditingController(text: "");
+  var _phoneContactController = TextEditingController(text: "");
   File _imageFile;
 
   @override
@@ -33,9 +35,21 @@ class _CreatePersonLostPageState extends State<CreatePersonLostPage> {
                     decoration: InputDecoration(labelText: 'Responde al nombre de:'),
                   ),
                   TextField(
-                    controller: _lastTimeSeenController,
+                    controller: _lastPlaceSeenController,
                     decoration: InputDecoration(
                       labelText: 'Último lugar donde fue visto:',
+                    ),
+                  ),
+                  TextField(
+                    controller: _nameContactController,
+                    decoration: InputDecoration(
+                      labelText: 'Nombre de contacto:',
+                    ),
+                  ),
+                  TextField(
+                    controller: _phoneContactController,
+                    decoration: InputDecoration(
+                      labelText: 'Celular de contacto',
                     ),
                   ),
                   SizedBox(height: 30),
@@ -59,7 +73,9 @@ class _CreatePersonLostPageState extends State<CreatePersonLostPage> {
                           onPressed: () {
                             Map<String, dynamic> jsonPerson = {
                               'respondToName': _lostPersonNameController.text,
-                              'description': _lastTimeSeenController.text
+                              'lastPlaceSeen': _lastPlaceSeenController.text,
+                              'contactName': _nameContactController.text,
+                              'contactPhone': _phoneContactController.text
                             };
                             model.registerMyFriend(_imageFile, jsonPerson);
                             Navigator.pushReplacement(

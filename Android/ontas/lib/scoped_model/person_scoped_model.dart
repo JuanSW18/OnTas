@@ -12,6 +12,7 @@ import 'package:ontas/model/user.dart';
 import 'package:http/http.dart' as http;
 
 mixin LostPersonScopedModel on Model {
+  Map<dynamic, dynamic> personFound;
   final DatabaseReference lostPersonDatabase = FirebaseReference.getReference('lostperson');
 
   registerMyFriend(File lostPersonPhoto, Map<String, dynamic> jsonPerson) async {
@@ -23,13 +24,21 @@ mixin LostPersonScopedModel on Model {
     });
   }
 
-  findMyFriend(File lostPersonPhoto, Map<String, dynamic> jsonPerson) async {
+  Future<bool> findMyFriend(File lostPersonPhoto, Map<String, dynamic> jsonPerson) async {
     http.StreamedResponse streamedResponse = await _matchImage(lostPersonPhoto);
     http.Response res = await http.Response.fromStream(streamedResponse);
     Map<dynamic, dynamic> map = json.decode(res.body);
-    DataSnapshot dataSnapshot = await lostPersonDatabase.child(map['uuid']).once();
-    Map<dynamic, dynamic> person = dataSnapshot.value['person'];
-    print(person);
+    String uuid = map['uuid'];
+    if (uuid != null) {
+      DataSnapshot dataSnapshot = await lostPersonDatabase.child(uuid).once();
+      if (dataSnapshot.value != null) {
+        personFound = dataSnapshot.value['person'];
+        return true;
+      } else {
+        return false;
+      }
+    }
+    return false;
   }
 
   Future<http.StreamedResponse> _uploadImage(File lostPersonPhoto) {
