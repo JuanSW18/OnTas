@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ontas/pages/create_person_lost.dart';
 import 'package:ontas/pages/login.dart';
 import 'package:ontas/scoped_model/main_model.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -35,7 +36,12 @@ class HomePage extends StatelessWidget {
                           child: Text('Perdí a una persona',
                               style: TextStyle(fontWeight: FontWeight.w600)),
                           width: 300),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute<bool>(
+                                builder: (BuildContext context) => CreatePersonLostPage()));
+                      },
                       color: Colors.amber),
                   RaisedButton(
                       child: Container(
