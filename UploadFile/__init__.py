@@ -6,29 +6,8 @@ import json
 
 app = Flask(__name__)
 
-class Aws:
-	def post(photo):
-		return '123asdjasldlqdsq'
-
-aws = Aws()
-
-
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
-<<<<<<< HEAD
-	if request.method == 'POST':
-		generated_file_name=str(uuid.uuid4())
-		file = request.files['data']
-		file.save('/home/danny/' + generated_file_name)
-
-		return generated_file_name
-		# image_bytes = base64.b64decode(bytes(file))
-		# print(image_bytes)
-		#file.save('/home/danny/' + secure_filename(generated_file_name))
-		# return jsonify({ 'url': generated_file_name })
-
-		#testing: curl -i -X POST -H "Content-Type: multipart/form-data" -F "data=@debian-rules.png" http://127.0.0.1:8080/upload
-=======
         if request.method == 'POST':
                 generated_file_name=str(uuid.uuid4())
                 photo = request.files['data']
@@ -44,7 +23,6 @@ def is_valid_face(features):
 
 def get_error(numberFace):
         return 'Esta imagen no contiene un rostro' if numberFace==0 else 'Esta imagen contiene más de 1 rostro'
->>>>>>> 017c657f15a53a2ea381eabc4af1765937790e58
 
 @app.route("/match", methods=['POST'])
 def match():
@@ -72,4 +50,3 @@ def getURL(photo):
 
 
 app.run(debug=False, port=8080)
-#app.run()
