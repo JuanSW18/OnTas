@@ -1,3 +1,0 @@
-FIREBASE
-https://ontas-aaff1.firebaseio.com/
-
