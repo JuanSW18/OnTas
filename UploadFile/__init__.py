@@ -17,12 +17,9 @@ aws = Aws()
 def upload_file():
         if request.method == 'POST':
                 generated_file_name=str(uuid.uuid4())
-                file = request.files['data']
-                imageBase64 = bytearray(file.read())
+                photo = request.files['data']
+                imageBase64 = bytearray(photo.read())
                 response = Rekognition().index_faces(imageBase64,generated_file_name)
-
-                print("uuid: ",generated_file_name)
-
                 if is_face(response): 
                         return json.dumps( {'uuid':generated_file_name} ) 
                 else: return abort(400)
@@ -39,10 +36,6 @@ def match():
 def getURL(photo):
 	response = aws.post(photo)
 	return response.url
-
-@app.route("/hola")
-def index():
-    return "Hola mundo"
 
 
 app.run(debug=False, port=8080)
