@@ -12,6 +12,7 @@
 auto-save-list
 tramp
 .\#*
+.Env
 
 # Org-mode
 .org-id-locations
