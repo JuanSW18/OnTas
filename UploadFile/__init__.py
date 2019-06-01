@@ -1,12 +1,9 @@
 import uuid, base64
-from flask import Flask, jsonify
-from flask import request
-from werkzeug.utils import secure_filename
+from flask import Flask, request
+from os import getcwd
 
-from config import Config
-
-app = Flask(__name__)
-app.config.from_object("Config")
+app = Flask(__name__, instance_path="{}".format(getcwd()))
+app.config.from_pyfile("config.cfg")
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
@@ -24,9 +21,14 @@ def upload_file():
 
 		#testing: curl -i -X POST -H "Content-Type: multipart/form-data" -F "data=@debian-rules.png" http://127.0.0.1:8080/upload
 
+@app.route("/match")
+def match():
+	return True
 
 @app.route("/hola")
 def index():
     return "Hola mundo"
 
-app.run()
+
+app.run(debug=False, port=8080)
+#app.run()
