@@ -1,13 +1,15 @@
-import uuid
-import base64
-from flask import Flask, jsonify
-from flask import request
-from flask import abort
-from werkzeug.utils import secure_filename
-from helper_aws import Rekognition
-import json
+import uuid, base64
+from flask import Flask, request
+from os import getcwd
 
 app = Flask(__name__)
+
+class Aws:
+	def post(photo):
+		return '123asdjasldlqdsq'
+
+aws = Aws()
+
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
@@ -23,18 +25,23 @@ def upload_file():
                         return json.dumps( {'uuid':generated_file_name} ) 
                 else: return abort(400)
                 
-                        
-		#return "hi :)"
-		# image_bytes = base64.b64decode(bytes(file))
-		# print(image_bytes)
-		#file.save('/home/danny/' + secure_filename(generated_file_name))
-		# return jsonify({ 'url': generated_file_name })
 
 def is_face(features):
         return True if len(features['FaceRecords'])>0 else False
+
+@app.route("/match", methods=['POST'])
+def match():
+	photo = request.files['data']
+	return getURL(photo.read())
+
+def getURL(photo):
+	response = aws.post(photo)
+	return response.url
 
 @app.route("/hola")
 def index():
     return "Hola mundo"
 
+
 app.run(debug=False, port=8080)
+#app.run()
