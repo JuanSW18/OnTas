@@ -2,9 +2,7 @@ import uuid, base64
 from flask import Flask, request
 from os import getcwd
 
-app = Flask(__name__, instance_path="{}".format(getcwd()))
-app.config.from_pyfile("config.cfg")
-
+app = Flask(__name__)
 
 class Aws:
 	def post(photo):
