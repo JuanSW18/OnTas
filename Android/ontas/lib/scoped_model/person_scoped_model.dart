@@ -19,7 +19,7 @@ mixin LostPersonScopedModel on Model {
     http.StreamedResponse streamedResponse = await _uploadImage(lostPersonPhoto);
     http.Response res = await http.Response.fromStream(streamedResponse);
     Map<dynamic, dynamic> map = json.decode(res.body);
-    lostPersonDatabase.set({
+    lostPersonDatabase.update({
       map['uuid']: {'person': jsonPerson}
     });
   }
