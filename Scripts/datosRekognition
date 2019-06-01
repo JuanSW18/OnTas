@@ -1,0 +1,10 @@
+
+Bucket S3:
+arn:aws:s3:::hackathon.faces
+
+collection-id: lost
+{
+    "StatusCode": 200,
+    "CollectionArn": "aws:rekognition:us-east-1:179765023513:collection/lost",
+    "FaceModelVersion": "4.0"
+}
