@@ -5,6 +5,14 @@ from os import getcwd
 app = Flask(__name__, instance_path="{}".format(getcwd()))
 app.config.from_pyfile("config.cfg")
 
+
+class Aws:
+	def post(photo):
+		return '123asdjasldlqdsq'
+
+aws = Aws()
+
+
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
 	if request.method == 'POST':
@@ -21,9 +29,14 @@ def upload_file():
 
 		#testing: curl -i -X POST -H "Content-Type: multipart/form-data" -F "data=@debian-rules.png" http://127.0.0.1:8080/upload
 
-@app.route("/match")
+@app.route("/match", methods=['POST'])
 def match():
-	return True
+	photo = request.files['data']
+	return getURL(photo.read())
+
+def getURL(photo):
+	response = aws.post(photo)
+	return response.url
 
 @app.route("/hola")
 def index():
