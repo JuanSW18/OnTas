@@ -1,6 +1,8 @@
 import uuid, base64
-from flask import Flask, request
+from flask import Flask, request, abort
 from os import getcwd
+from helper_aws import Rekognition
+import json
 
 app = Flask(__name__)
 
