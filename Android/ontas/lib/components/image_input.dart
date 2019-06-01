@@ -118,45 +118,35 @@ class ImageInputState extends State<ImageInput> {
         return value == null && !_editing ? 'Selecciona o toma una foto' : null;
       },
       builder: (imageForm) {
-        return Row(
-          children: <Widget>[
-            widget.onlyCam
-                ? Expanded(
-                    flex: _editing ? 2 : 1,
-                    child: Column(children: <Widget>[
-                      GestureDetector(
-                          onTap: () async {
-                            File image = await _getImageFromGallery();
-                            _checkFileCorrectSize(imageForm, image);
-                          },
-                          child: _getGalleryContainer(imageForm)),
-                      Text('Seleccionar', style: TextStyle(color: Colors.black54, fontSize: 12))
-                    ]))
-                : Expanded(flex: 1, child: Container()),
-            Expanded(
-                flex: 2,
-                child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
-                  Column(children: <Widget>[
+        return Row(children: <Widget>[
+          widget.onlyCam
+              ? Expanded(
+                  flex: _editing ? 2 : 1,
+                  child: Column(children: <Widget>[
                     GestureDetector(
                         onTap: () async {
-                          File image = await _getImageFromCamera();
+                          File image = await _getImageFromGallery();
                           _checkFileCorrectSize(imageForm, image);
                         },
-                        child: _getCameraContainer(imageForm)),
-                    Text('Cámara', style: TextStyle(color: Colors.black54, fontSize: 16))
-                  ]),
-                  _getErrorWidget(imageForm.hasError, imageForm.errorText)
-                ])),
-            _editing
-                ? Expanded(
-                    flex: 2,
-                    child: Column(children: <Widget>[
-                      _getActualImageContainer(widget.actualImage),
-                      Text('Imagen actual', style: TextStyle(color: Colors.black54, fontSize: 12))
-                    ]))
-                : Container(),
-          ],
-        );
+                        child: _getGalleryContainer(imageForm)),
+                    Text('Galeria', style: TextStyle(color: Colors.black54, fontSize: 12))
+                  ]))
+              : Expanded(flex: 1, child: Container()),
+          Expanded(
+              flex: 2,
+              child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+                Column(children: <Widget>[
+                  GestureDetector(
+                      onTap: () async {
+                        File image = await _getImageFromCamera();
+                        _checkFileCorrectSize(imageForm, image);
+                      },
+                      child: _getCameraContainer(imageForm)),
+                  Text('Cámara', style: TextStyle(color: Colors.black54, fontSize: 16))
+                ]),
+                _getErrorWidget(imageForm.hasError, imageForm.errorText)
+              ]))
+        ]);
       },
     );
   }

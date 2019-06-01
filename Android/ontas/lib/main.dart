@@ -13,7 +13,10 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'OnTas',
-            theme: ThemeData(primarySwatch: Colors.amber, scaffoldBackgroundColor: Colors.white),
+            theme: ThemeData(
+                primarySwatch: Colors.amber,
+                scaffoldBackgroundColor: Colors.white,
+                fontFamily: 'Poppins'),
             home: LoginPage()));
   }
 }

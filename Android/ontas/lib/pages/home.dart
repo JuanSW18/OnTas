@@ -12,7 +12,9 @@ class HomePage extends StatelessWidget {
         builder: (BuildContext context, Widget child, MainModel model) {
       return Scaffold(
           appBar: AppBar(
-            title: Text('ONTAS!!!!'),
+            backgroundColor: Colors.white,
+            title: Text(''),
+            elevation: 0.0,
             actions: <Widget>[
               IconButton(
                 icon: Icon(Icons.exit_to_app),
@@ -29,7 +31,7 @@ class HomePage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Container(child: Icon(Icons.person, size: 100.0)),
+                  Container(child: Image.asset('assets/logo.png')),
                   SizedBox(height: 160),
                   RaisedButton(
                       child: Container(
@@ -59,7 +61,6 @@ class HomePage extends StatelessWidget {
                       color: Colors.amber)
                 ]),
           ));
-      ;
     });
   }
 }
