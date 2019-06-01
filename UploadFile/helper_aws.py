@@ -7,12 +7,25 @@ class Rekognition(object):
         self.collectionId = "lost"
         self.bucket_name = "hackathon.faces"
 
-    def index_faces(self,bytess,idImage):
+    def index_faces(self,imageBytes,idImage):
 
         client = boto3.client('rekognition')
         response = client.index_faces(
-            Image={'Bytes': bytess}, CollectionId=self.collectionId, ExternalImageId=idImage)
+            Image={'Bytes': imageBytes}, CollectionId=self.collectionId, ExternalImageId=idImage)
 
+        return response
+    
+    def face_recog(self,imageBytes):
+        
+        client = boto3.client('rekognition')
+        response = client.search_faces_by_image(
+            CollectionId=self.collectionId,
+            Image={
+                'Bytes': imageBytes
+            },
+            FaceMatchThreshold=80
+        )
+        
         return response
     
     def upload_file_to_s3(self,archive, name,acl="public-read"):
