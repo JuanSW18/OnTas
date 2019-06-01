@@ -8,6 +8,12 @@ class CreatePersonLostPage extends StatefulWidget {
 class _CreatePersonLostPageState extends State<CreatePersonLostPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar:AppBar(title: Text('NOSE QUE ¡PONER'),),body: Center(child: Text('GHOOOLI')));
+    return Scaffold(
+        appBar: AppBar(
+          title: Text('NOSE QUE ¡PONER'),
+          backgroundColor: Colors.white,
+          elevation: 0.0
+        ),
+        body: Center(child: Text('GHOOOLI')));
   }
 }
