@@ -15,16 +15,34 @@ mixin LostPersonScopedModel on Model {
   final DatabaseReference lostPersonDatabase = FirebaseReference.getReference('lostperson');
 
   registerMyFriend(File lostPersonPhoto, Map<String, dynamic> jsonPerson) async {
-    String uuid;
-      http.StreamedResponse res = await _addImage(lostPersonPhoto);
-      //TODO: Leer res y sacar el uuid
+    http.StreamedResponse streamedResponse = await _uploadImage(lostPersonPhoto);
+    http.Response res = await http.Response.fromStream(streamedResponse);
+    Map<dynamic, dynamic> map = json.decode(res.body);
     lostPersonDatabase.set({
-      uuid: {'person': jsonPerson}
+      map['uuid']: {'person': jsonPerson}
     });
   }
 
-  Future<http.StreamedResponse> _addImage(File lostPersonPhoto) {
+  findMyFriend(File lostPersonPhoto, Map<String, dynamic> jsonPerson) async {
+    http.StreamedResponse streamedResponse = await _matchImage(lostPersonPhoto);
+    http.Response res = await http.Response.fromStream(streamedResponse);
+    Map<dynamic, dynamic> map = json.decode(res.body);
+    DataSnapshot dataSnapshot = await lostPersonDatabase.child(map['uuid']).once();
+    Map<dynamic, dynamic> person = dataSnapshot.value['person'];
+    print(person);
+  }
+
+  Future<http.StreamedResponse> _uploadImage(File lostPersonPhoto) {
     var url = Uri.parse('http://138.68.51.122:5000/upload');
+    var request = new http.MultipartRequest("POST", url);
+    request.headers['content-type'] = 'multipart/form-data';
+    request.files.add(new http.MultipartFile.fromBytes("data", lostPersonPhoto.readAsBytesSync(),
+        contentType: MediaType.parse('multipart/form-data'), filename: 'data'));
+    return request.send();
+  }
+
+  Future<http.StreamedResponse> _matchImage(File lostPersonPhoto) {
+    var url = Uri.parse('http://138.68.51.122:5000/match');
     var request = new http.MultipartRequest("POST", url);
     request.headers['content-type'] = 'multipart/form-data';
     request.files.add(new http.MultipartFile.fromBytes("data", lostPersonPhoto.readAsBytesSync(),

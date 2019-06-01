@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:ontas/components/image_input.dart';
+import 'package:ontas/pages/home.dart';
 import 'package:ontas/scoped_model/main_model.dart';
 import 'package:scoped_model/scoped_model.dart';
 
@@ -17,11 +18,12 @@ class _CreatePersonLostPageState extends State<CreatePersonLostPage> {
 
   @override
   Widget build(BuildContext context) {
-    return ScopedModelDescendant<MainModel>(builder: (BuildContext context, Widget child, MainModel model){
-        return Scaffold(
-            appBar: AppBar(title: Text(''), backgroundColor: Colors.white, elevation: 0.0),
-            body: ListView(children: <Widget>[
-              Container(
+    return ScopedModelDescendant<MainModel>(
+        builder: (BuildContext context, Widget child, MainModel model) {
+      return Scaffold(
+          appBar: AppBar(title: Text(''), backgroundColor: Colors.white, elevation: 0.0),
+          body: ListView(children: <Widget>[
+            Container(
                 padding: EdgeInsets.symmetric(horizontal: 25.0, vertical: 5.0),
                 child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
                   Text('No encuentro a ...',
@@ -47,25 +49,27 @@ class _CreatePersonLostPageState extends State<CreatePersonLostPage> {
                       onlyCam: true),
                   SizedBox(height: 30),
                   Container(
-                    alignment: Alignment.centerRight,
-                    child: RaisedButton(
-                        child: Container(
-                          alignment: Alignment.center,
-                          child: Text('REGISTRAR', style: TextStyle(fontWeight: FontWeight.bold)),
-                          width: 150,
-                        ),
-                        onPressed: () {
-                          Map<String, dynamic> jsonPerson = {
-                            'respondToName': _lostPersonNameController.text,
-                            'description': _lastTimeSeenController.text
-                          };
-                          model.registerMyFriend(_imageFile,jsonPerson);
-                        },
-                        color: Colors.amber),
-                  ),
-                ]),
-              ),
-            ]));
+                      alignment: Alignment.centerRight,
+                      child: RaisedButton(
+                          child: Container(
+                            alignment: Alignment.center,
+                            child: Text('REGISTRAR', style: TextStyle(fontWeight: FontWeight.bold)),
+                            width: 150,
+                          ),
+                          onPressed: () {
+                            Map<String, dynamic> jsonPerson = {
+                              'respondToName': _lostPersonNameController.text,
+                              'description': _lastTimeSeenController.text
+                            };
+                            model.registerMyFriend(_imageFile, jsonPerson);
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute<bool>(
+                                    builder: (BuildContext context) => HomePage()));
+                          },
+                          color: Colors.amber))
+                ]))
+          ]));
     });
   }
 }
