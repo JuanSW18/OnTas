@@ -1,11 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:ontas/scoped_model/main_model.dart';
+import 'package:ontas/components/image_input.dart';
 
 class CreatePersonLostPage extends StatefulWidget {
-
-  MainModel _model;
-
-  CreatePersonLostPage(this._model);
 
   @override
   _CreatePersonLostPageState createState() => _CreatePersonLostPageState();
@@ -13,46 +11,59 @@ class CreatePersonLostPage extends StatefulWidget {
 
 class _CreatePersonLostPageState extends State<CreatePersonLostPage> {
 
-  var lostPersonNameController = TextEditingController();
+  var lostPersonNameController = TextEditingController(text: "");
+  var descriptionPersonController = TextEditingController(text: "");
   BuildContext _context;
 
   @override
   Widget build(BuildContext context) {
-    _context = context;
-    return Scaffold(
-      appBar: AppBar(title: Text(""), centerTitle: true),
-      body: Container(
-        margin: EdgeInsets.only(top: 100.0),
-        child: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              Text('Ingresa tu usuario', style: TextStyle(fontSize: 20.0)),
-              SizedBox(height: 10.0),
-              _buildInputUsername(),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
 
-  Widget _buildInputUsername() {
-    return Container(
-        padding: EdgeInsets.symmetric(horizontal: 8.0),
-        child: TextField(
-          controller: lostPersonNameController,
-          textAlign: TextAlign.center,
-          maxLength: 12,
-          decoration: InputDecoration(
-            hintStyle: new TextStyle(color: Colors.grey[600]),
-            filled: true,
-            fillColor: Colors.white,
-            border: new OutlineInputBorder(
-              borderRadius: const BorderRadius.all(
-                const Radius.circular(50.0),
+    return Scaffold(
+        appBar: AppBar(
+          title: Text(''),
+          backgroundColor: Colors.white,
+          elevation: 0.0
+        ),
+        body: ListView(
+          children: <Widget>[Container(
+            padding: EdgeInsets.symmetric(horizontal: 25.0, vertical: 5.0),
+            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+              Text('Encontré a ...', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 36)),
+              TextField(
+                controller: lostPersonNameController,
+                decoration: InputDecoration(labelText: 'Responde al nombre de:'),
               ),
-            ),
-          ),
+              TextField(
+                controller: descriptionPersonController,
+                maxLines: 5,
+                decoration: InputDecoration(
+                  labelText: 'Pequeña descripción:',
+                ),
+                maxLength: 500,
+              ),
+              Text('Foto de la persona encontrada:'),
+              SizedBox(height: 20),
+              ImageInput(
+                  onSave: (File imageFileSource) {
+                    print('holi');
+// _setImageFile(imageFileSource);
+                  },
+                  actualImage: null,
+                  onlyCam: false),
+              SizedBox(height: 30),
+              Container(
+                alignment: Alignment.centerRight,
+                child: RaisedButton(
+                    child: Container(
+                      alignment: Alignment.center,
+                      child: Text('REPORTAR', style: TextStyle(fontWeight: FontWeight.bold)),
+                      width: 150,
+                    ),
+                    onPressed: () {},
+                    color: Colors.amber),
+              ),
+            ]),
+          ),]
         ));
   }
 
