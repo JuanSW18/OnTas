@@ -14,8 +14,9 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             title: 'OnTas',
             theme: ThemeData(
-              primarySwatch: Colors.amber,
-            ),
+                primarySwatch: Colors.amber,
+                scaffoldBackgroundColor: Colors.white,
+                fontFamily: 'Poppins'),
             home: LoginPage()));
   }
 }

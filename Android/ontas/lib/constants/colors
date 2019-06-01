@@ -20,7 +20,7 @@ const BlueGradient = LinearGradient(
   colors: [BlueMain, BlueSecond],
 );
 
-const YellowMain = Color.fromRGBO(254, 204, 101, 1);
+const YellowMain = Color.fromRGBO(255, 178, 127, 1);
 const YellowSecond = Color.fromRGBO(255, 178, 127, 1);
 
 const YellowGradient = LinearGradient(
