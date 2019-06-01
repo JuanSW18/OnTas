@@ -3,7 +3,8 @@ import boto3
 class Rekognition(object):
 
     def __init__(self):
-s       self.client = boto3.client('rekognition')
+        self.client = boto3.client('rekognition')
+        self.collectionId = "lost"
 
     def index_faces(self,bytess,idImage):
 
