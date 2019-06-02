@@ -33,17 +33,29 @@ class _LoginPageState extends State<LoginPage> {
             : ScopedModelDescendant<MainModel>(
                 builder: (BuildContext context, Widget child, MainModel model) {
                 return CustomScrollColor(
-                    child: ListView(children: <Widget>[
-                  SizedBox(height: 50.0),
+                    child: Stack(
+                  children: <Widget>[
+                    Positioned(top: 360,left: 120,child: Image.asset('assets/logo_background.png'),),
+                    ListView(children: <Widget>[
+                      SizedBox(height: 50.0),
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 20.0),
+                        child: Text(
+                          'Bienvenidos a Ontas',
+                          style: TextStyle(fontSize: 46, fontWeight: FontWeight.bold,height: 0.8),
+                        ),
+                      ),
 //                  Center(
 //                      child: Icon(CustomIcons.water_amount_large, color: Colors.white, size: 80)),
-                  SizedBox(height: 30.0),
-                  _buildEmailLoginForm(model),
-                  _buildLoginOrSignUp(),
+                      SizedBox(height: 30.0),
+                      _buildEmailLoginForm(model),
+                      _buildLoginOrSignUp(),
 
-                  SizedBox(height: 20.0),
-                  _buildTermsAndConditions()
-                ]));
+                      SizedBox(height: 20.0),
+                      _buildTermsAndConditions()
+                    ])
+                  ],
+                ));
               }));
   }
 

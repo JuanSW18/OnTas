@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ontas/pages/create_person_lost.dart';
 import 'package:ontas/pages/login.dart';
+import 'package:ontas/pages/person_found.dart';
+import 'package:ontas/pages/search_person_lost.dart';
 import 'package:ontas/scoped_model/main_model.dart';
 import 'package:scoped_model/scoped_model.dart';
 
@@ -11,7 +13,9 @@ class HomePage extends StatelessWidget {
         builder: (BuildContext context, Widget child, MainModel model) {
       return Scaffold(
           appBar: AppBar(
-            title: Text('ONTAS!!!!'),
+            backgroundColor: Colors.white,
+            title: Text(''),
+            elevation: 0.0,
             actions: <Widget>[
               IconButton(
                 icon: Icon(Icons.exit_to_app),
@@ -28,7 +32,7 @@ class HomePage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Container(child: Icon(Icons.person, size: 100.0)),
+                  Container(child: Image.asset('assets/logo.png')),
                   SizedBox(height: 160),
                   RaisedButton(
                       child: Container(
@@ -49,11 +53,15 @@ class HomePage extends StatelessWidget {
                           child: Text('Encontré una persona',
                               style: TextStyle(fontWeight: FontWeight.w600)),
                           width: 300),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute<bool>(
+                                builder: (BuildContext context) => SearchPersonPage()));
+                      },
                       color: Colors.amber)
                 ]),
           ));
-      ;
     });
   }
 }
